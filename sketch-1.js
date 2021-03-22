@@ -2,25 +2,25 @@ var PLAY = 1;
 var END = 0;
 var gameState = PLAY;
 var tower, climber, door, ghost, invisibleBlock;
-var towerImg, climberImg, doorImg, ghostImg;
+var tImg, cImg, dImg, gImg;
 var doorGroup, climberGroup, iBGroup;
 
 function preload(){
-  towerImg = loadImage('tower.png');
-  climberImg = loadImage('climber.png');
-  doorImg = loadImage('door.png');
-  ghostImg = loadImage('ghost-standing.png');
+  tImg = loadImage('tower.png');
+  cImg = loadImage('climber.png');
+  dImg = loadImage('door.png');
+  gImg = loadImage('ghost-standing.png');
 }
 
 function setup(){
   createCanvas(600, 600);
   
   tower = createSprite(300, 300);
-  tower.addImage(towerImg);
+  tower.addImage(tImg);
   tower.velocityY = 1;
   
   ghost = createSprite(200, 200, 50, 50);
-  ghost.addImage(ghostImg);
+  ghost.addImage(gImg);
   ghost.scale = 0.3;
     
   doorGroup = createGroup();
@@ -55,15 +55,17 @@ function draw(){
       ghost.destroy();
       gameState = END;
     }
+
     spawn();
-  }  
+  }
+  
   drawSprites();
   
   if(gameState === END){
     background('black');
-    fill('red');
-    textSize(70);
-    text('Game Over', 130, 300);
+    fill('yellow');
+    textSize(30);
+    text('Game Over', 230, 250);
   }
 }
 
@@ -75,9 +77,10 @@ function spawn(){
     
     invisibleBlock.width = climber.width;
     invisibleBlock.height = 2;
+    invisibleBlock.debug = true;
     
-    door.addImage(doorImg);
-    climber.addImage(climberImg);
+    door.addImage(dImg);
+    climber.addImage(cImg);
     
     door.velocityY = 1;
     climber.velocityY = 1;
